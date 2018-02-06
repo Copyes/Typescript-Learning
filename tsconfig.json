@@ -2,7 +2,8 @@
   "compilerOptions": {
     "sourceMap": true,
     "allowJs": true,
-    "module": "commonjs",
+    "module": "es6",
+    "allowSyntheticDefaultImports": true,
     "removeComments": true,
     // 可以使用 Promise, async, await等新语法
     "target": "es5"

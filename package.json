@@ -11,9 +11,17 @@
     "precommit": "npm run lint",
     "dev": "webpack --progress --colors --watch --env dev",
     "build": "webpack --env dev && webpack --env build && npm run test",
-    "test": "mocha --require babel-core/register --colors ./test/*.spec.js",
-    "test:watch": "mocha --require babel-core/register -w --colors ./test/*.spec.js",
-    "lint": "eslint --ext .js src"
+    "test": "jest",
+    "lint": "eslint --ext .ts src"
+  },
+  "jest": {
+    "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx"],
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "roots": ["test"],
+    "collectCoverage": true
   },
   "repository": {
     "type": "git",
@@ -38,7 +46,8 @@
     "eslint": "^4.14.0",
     "eslint-loader": "^1.9.0",
     "husky": "^0.14.3",
-    "mocha": "^4.1.0",
+    "jest": "^22.1.4",
+    "ts-jest": "^22.0.3",
     "ts-loader": "^3.4.0",
     "typescript": "^2.7.1",
     "webpack": "^3.10.0",
