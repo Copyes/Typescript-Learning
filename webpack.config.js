@@ -3,7 +3,7 @@ const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin
 const path = require('path')
 const env = require('yargs').argv.env // use --env with webpack 2
 
-let libraryName = 'library'
+let libraryName = 'engine'
 
 let plugins = [],
   outputFile
@@ -16,7 +16,7 @@ if (env === 'build') {
 }
 
 const config = {
-  entry: __dirname + '/src/index.js',
+  entry: __dirname + '/src/engine.ts',
   devtool: 'source-map',
   output: {
     path: __dirname + '/lib',
@@ -28,12 +28,19 @@ const config = {
   module: {
     rules: [
       {
-        test: /(\.jsx|\.js)$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
+        test: /(\.jsx|\.js|\.ts)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'ts-loader'
+          }
+        ]
       },
       {
-        test: /(\.jsx|\.js)$/,
+        test: /(\.jsx|\.js|\.ts)$/,
         loader: 'eslint-loader',
         exclude: /node_modules/
       }
@@ -41,7 +48,7 @@ const config = {
   },
   resolve: {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
-    extensions: ['.json', '.js']
+    extensions: ['.json', '.js', '.ts']
   },
   plugins: plugins
 }
